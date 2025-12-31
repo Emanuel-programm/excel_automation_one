@@ -58,6 +58,20 @@ if os.path.exists(Path):
     df.insert(8,'Tax_perProduct',df['Tax_USD']/df['Order Quantity'])
     df.insert(8,'Tax_percentage',df['Tax_USD']/df['Total_USD']*100)
    
+     
+    df.rename(columns={'Order Quantity':'Order_Quantinty'},inplace=True)
+    order_than_three=df[df['Order_Quantinty']>3]
+    print(order_than_three)
+
+
+    # to save the new report
+    with pd.ExcelWriter('sales_more_than_3_units.xlsx') as writer:
+        order_than_three.to_excel(writer,sheet_name='Orders>3Units',index=False)
+
+    
+
+
+
 else:
     print("The specified file does not exist.")
 
