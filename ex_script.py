@@ -41,8 +41,14 @@ if os.path.exists(Path):
     df.insert(7,'Tax-Remarks',df['Tax_USD'].apply(lambda x:'High Tax' if x>20 else 'Low Tax'))
     df.rename(columns={'Total (USD)':'Total_USD','Tax (USD)':'Tax_USD'},inplace=True)
     df.rename(columns={'Tax_Remark':'Tax-Remarks'},inplace=True)
+
+    #standardize column names
+    df['Customer Name']=df['Customer Name'].str.strip().str.title()
+    
+
     # Generate file to excel
     df.to_excel('Cleaned_supermarket_new.xlsx',index=False)
+    
 
     df.drop(columns=['Tax-Remarks'],inplace=True)
 
